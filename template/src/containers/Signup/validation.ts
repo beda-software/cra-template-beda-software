@@ -8,7 +8,6 @@ const schema = {
     },
     required: [
         'email',
-        'phoneNumber',
     ],
     errorMessage: {
         required: 'Required',
