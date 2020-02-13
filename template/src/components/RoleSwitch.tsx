@@ -2,10 +2,7 @@ import * as React from 'react';
 
 import { SessionContext } from 'src/containers/SessionContext';
 import { User } from 'src/contrib/aidbox';
-import {
-    isSuperAdmin,
-    isUnprivileged, SuperAdminUser, UserRole,
-} from 'src/services/role';
+import { isSuperAdmin, isUnprivileged, SuperAdminUser, UserRole } from 'src/services/role';
 
 interface Props {
     children: {

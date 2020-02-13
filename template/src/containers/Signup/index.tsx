@@ -1,24 +1,17 @@
 import * as React from 'react';
 import { History } from 'history';
-import {FORM_ERROR} from 'final-form';
-import {Layout, Form, Row, Col, Alert, Button, Card, notification} from 'antd';
+import { FORM_ERROR } from 'final-form';
+import { Layout, Form, Row, Col, Alert, Button, Card, notification } from 'antd';
 import { Link } from 'react-router-dom';
-import { Form as FinalForm} from 'react-final-form';
-
-
+import { Form as FinalForm } from 'react-final-form';
 
 import { signup, SignupBody } from 'src/services/auth';
-import {
-    InputField,
-
-} from 'src/components/fields';
+import { InputField } from 'src/components/fields';
 import validate from './validation';
 import { trimWhitespaces } from 'src/utils/form';
-import {isSuccess} from "src/embed/aidbox-react/libs/remoteData";
-
+import { isSuccess } from 'src/embed/aidbox-react/libs/remoteData';
 
 const { Content } = Layout;
-
 
 const formItemLayout = {
     labelCol: {
@@ -43,13 +36,11 @@ const tailFormItemLayout = {
     },
 };
 
-
 interface Props {
     history: History;
 }
 
 export function Signup({ history }: Props) {
-
     const onSubmit = async (values: SignupBody) => {
         const response = await signup(values);
         if (isSuccess(response)) {
@@ -87,7 +78,7 @@ export function Signup({ history }: Props) {
                                         <Form.Item {...tailFormItemLayout}>
                                             <h1>Sign Up</h1>
                                         </Form.Item>
-                                        <InputField name="email" placeholder="Email" label="Email"/>
+                                        <InputField name="email" placeholder="Email" label="Email" />
                                         {submitError ? (
                                             <Form.Item {...tailFormItemLayout}>
                                                 <Alert message={submitError} type="error" />

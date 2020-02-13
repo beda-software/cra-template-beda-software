@@ -14,5 +14,3 @@ export const baseURL =
 
         return null;
     })() || 'http://localhost:8080';
-
-

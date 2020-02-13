@@ -1,8 +1,8 @@
-import React from "react";
-import {Button} from "antd";
+import React from 'react';
+import { Button } from 'antd';
 
 interface Props {
-    logout: () => void
+    logout: () => void;
 }
 
 export function UnprivilegedApp({ logout }: Props) {
@@ -11,5 +11,5 @@ export function UnprivilegedApp({ logout }: Props) {
             <h2>UnprivilegedApp</h2>
             <Button onClick={() => logout()}>Logout</Button>
         </>
-    )
+    );
 }

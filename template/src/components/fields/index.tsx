@@ -331,7 +331,6 @@ export function DateTimePickerField({
                                 showTime={showTime}
                                 open={isOpen}
                                 onOpenChange={(status) => setIsOpen(status)}
-
                                 {...props}
                                 format={showTime ? humanDateTime : humanDate}
                                 value={getRawFieldValue()}

@@ -1,14 +1,11 @@
-import {Token} from "src/embed/aidbox-react/services/token";
-
+import { Token } from 'src/embed/aidbox-react/services/token';
 
 export function saveToken(token: Token): void {
     localStorage.setItem('token', JSON.stringify(token));
-
 }
 
 export function removeToken(): void {
     localStorage.removeItem('token');
-
 }
 
 export function retrieveToken(): Token | undefined {
@@ -19,5 +16,3 @@ export function retrieveToken(): Token | undefined {
 
     return undefined;
 }
-
-

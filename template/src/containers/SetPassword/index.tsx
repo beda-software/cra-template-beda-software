@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import ReactRouter from 'react-router';
 import { History } from 'history';
-import {InputField} from "src/components/fields";
-import {SetPasswordBody} from "src/services/auth";
-import {Button, Card, Col, Form, Layout, notification, Row, Alert} from "antd";
-import {isSuccess, RemoteData} from "src/embed/aidbox-react/libs/remoteData";
+import { InputField } from 'src/components/fields';
+import { SetPasswordBody } from 'src/services/auth';
+import { Button, Card, Col, Form, Layout, notification, Row, Alert } from 'antd';
+import { isSuccess, RemoteData } from 'src/embed/aidbox-react/libs/remoteData';
 import { Form as FinalForm } from 'react-final-form';
 import validate from './validation';
 
@@ -40,7 +40,6 @@ interface Props {
 }
 
 export function SetPassword({ service, match, history }: Props) {
-
     const onSubmit = async (values: SetPasswordBody) => {
         const { code } = match.params;
         const response = await service({ code, password: values.password });
@@ -52,8 +51,6 @@ export function SetPassword({ service, match, history }: Props) {
             notification.error({ message: 'Invalid or expired token' });
         }
     };
-
-
 
     return (
         <Layout className="layout">
