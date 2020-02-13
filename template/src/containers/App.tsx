@@ -16,18 +16,19 @@ import { SetPassword } from 'src/containers/SetPassword';
 import { Signup } from 'src/containers/Signup';
 import { Signin } from 'src/containers/Signin';
 import { Token } from 'src/embed/aidbox-react/services/token';
-import { resetInstanceToken, setInstanceBaseURL, setInstanceToken } from 'src/embed/aidbox-react/services/instance';
+import { resetInstanceToken,setInstanceBaseURL, setInstanceToken } from 'src/embed/aidbox-react/services/instance';
 import { baseURL } from 'src/services/constants';
 
-export function App() {
-    React.useEffect(() => {
-        setInstanceBaseURL(baseURL);
-        const globalToken = retrieveToken();
-        if (globalToken) {
-            setInstanceToken(globalToken);
-        }
-    }, []);
+(function init() {
+    setInstanceBaseURL(baseURL);
+    const globalToken = retrieveToken();
 
+    if (globalToken) {
+        setInstanceToken(globalToken);
+    }
+})();
+
+export function App() {
     const [appToken, setAppToken] = React.useState<Token | undefined>(retrieveToken());
 
     const setToken = (token: Token) => {
@@ -122,3 +123,4 @@ export function App() {
         </Router>
     );
 }
+
