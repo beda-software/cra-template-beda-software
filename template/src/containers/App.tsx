@@ -101,7 +101,7 @@ export function App() {
                 />
                 <Redirect
                     to={
-                        history.location.state && history.location.state.referrer
+                        history.location.state && history.location.state.referrer && history.location.state.referrer !== '/'
                             ? history.location.state.referrer
                             : '/app'
                     }
