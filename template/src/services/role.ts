@@ -8,14 +8,23 @@ interface Role<P extends keyof User['data']> extends User {
 
 export type SuperAdminUser = Role<'superAdmin'>;
 
+
 export function isSuperAdmin(user: User): user is SuperAdminUser {
     // TODO: create a separated superadmin user
     return (_.isPlainObject(user.data) && _.isPlainObject(user.data!.superAdmin)) || user.id === 'admin';
 }
 
+
 export function isUnprivileged(user: User) {
     // TODO: create a separated superadmin user
-    return !_.some([isSuperAdmin], (fn) => fn(user)) && user.id !== 'admin';
+    return (
+        !_.some(
+            [
+                isSuperAdmin,
+            ],
+            (fn) => fn(user)
+        ) && user.id !== 'admin'
+    );
 }
 
 export enum UserRole {
@@ -23,13 +32,15 @@ export enum UserRole {
     UnprivilegedRole = 'Unprivileged',
 }
 
-export const userRoles = [UserRole.SuperAdminRole];
+export const userRoles = [
+    UserRole.SuperAdminRole,
+];
 
 export function getUserRole(user: User) {
     if (isSuperAdmin(user)) {
         return UserRole.SuperAdminRole;
-        // } else if (isAdmin(user)) {
-        //     return UserRole.AdminRole;
+    // } else if (isAdmin(user)) {
+    //     return UserRole.AdminRole;
     } else {
         return UserRole.UnprivilegedRole;
     }

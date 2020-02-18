@@ -1,22 +1,24 @@
-import React from 'react';
-import _ from 'lodash';
+import React from "react";
+import _ from 'lodash'
 import { Layout, Form, Row, Col, Alert, Button, Card } from 'antd';
-import { Link } from 'react-router-dom';
-import { signin, SigninBody } from 'src/services/auth';
-import { Form as FinalForm } from 'react-final-form';
-import { InputField } from 'src/components/fields';
+import {Link} from "react-router-dom";
+import {signin, SigninBody} from "src/services/auth";
+import { CustomForm } from 'src/components/CustomForm';
+import {InputField} from "src/components/fields";
 import validate from './validation';
-import { isSuccess } from 'src/embed/aidbox-react/libs/remoteData';
-import { FORM_ERROR } from 'final-form';
-import { Token } from 'src/embed/aidbox-react/services/token';
+import {isSuccess} from "src/embed/aidbox-react/libs/remoteData";
+import {FORM_ERROR} from "final-form";
+import {Token} from "src/embed/aidbox-react/services/token";
 
 const { Content } = Layout;
 
+
 interface Props {
-    setToken: (token: Token) => void;
+    setToken: (token: Token) => void
 }
 
 export function Signin({ setToken }: Props) {
+
     async function onSubmit(values: SigninBody) {
         const response = await signin(values);
         if (isSuccess(response)) {
@@ -30,7 +32,7 @@ export function Signin({ setToken }: Props) {
             }
             return { [FORM_ERROR]: error };
         }
-        return;
+        return
     }
 
     const formItemLayout = {
@@ -56,23 +58,19 @@ export function Signin({ setToken }: Props) {
         },
     };
 
-    return (
+    return(
         <Layout className="layout">
             <Content>
                 <Row style={{ height: '100vh' }}>
                     <Col xs={{ span: 24, offset: 0 }} lg={{ span: 12, offset: 6 }}>
                         <Card style={{ marginTop: '10%', paddingTop: '15px' }}>
-                            <FinalForm<SigninBody>
+                            <CustomForm<SigninBody>
                                 onSubmit={onSubmit}
                                 validate={validate}
-                                render={({ handleSubmit, submitError, pristine, submitting }) => (
-                                    <Form
-                                        {...formItemLayout}
-                                        onSubmit={(event) => {
-                                            event.preventDefault();
-                                            handleSubmit();
-                                        }}
-                                    >
+                                {...formItemLayout}
+                            >
+                                {({ submitError, submitting }) => (
+                                    <>
                                         <Form.Item {...tailFormItemLayout}>
                                             <h1>Login</h1>
                                         </Form.Item>
@@ -104,13 +102,13 @@ export function Signin({ setToken }: Props) {
                                             <br />
                                             <Link to="/reset-password">Forgot password?</Link>
                                         </Form.Item>
-                                    </Form>
+                                    </>
                                 )}
-                            />
+                            </CustomForm>
                         </Card>
                     </Col>
                 </Row>
             </Content>
         </Layout>
-    );
+    )
 }

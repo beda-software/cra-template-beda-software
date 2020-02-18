@@ -6,7 +6,9 @@ const schema = {
             format: 'email',
         },
     },
-    required: ['email'],
+    required: [
+        'email',
+    ],
     errorMessage: {
         required: 'Required',
         properties: {

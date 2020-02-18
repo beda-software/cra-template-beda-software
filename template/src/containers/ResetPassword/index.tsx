@@ -6,7 +6,7 @@ import { InputField } from 'src/components/fields';
 import validate from './validation';
 import { service } from 'src/embed/aidbox-react/services/service';
 import { CustomForm } from 'src/components/CustomForm';
-import { isFailure, isSuccess } from 'src/embed/aidbox-react/libs/remoteData';
+import {isFailure, isSuccess} from 'src/embed/aidbox-react/libs/remoteData';
 import { formatError } from 'src/utils/error';
 
 const { Content } = Layout;

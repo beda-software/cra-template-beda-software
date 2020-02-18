@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
 
-import { service } from 'src/embed/aidbox-react/services/service';
-import { RemoteDataResult } from 'src/embed/aidbox-react/libs/remoteData';
-import { Token } from 'src/embed/aidbox-react/services/token';
+import {service} from "src/embed/aidbox-react/services/service";
+import {RemoteDataResult} from "src/embed/aidbox-react/libs/remoteData";
+import {Token} from "src/embed/aidbox-react/services/token";
+
 
 export interface SigninBody {
     email: string;
@@ -42,7 +43,12 @@ export interface SignupBody {
 export function signup(data: SignupBody): Promise<RemoteDataResult<any>> {
     const formData = new FormData();
     formData.append('username', data.email);
-    _.each(['email'], (key) => formData.append(key, data[key] || ''));
+    _.each(
+        [
+            'email',
+        ],
+        (key) => formData.append(key, data[key] || '')
+    );
 
     return service({
         url: '/auth/signup',

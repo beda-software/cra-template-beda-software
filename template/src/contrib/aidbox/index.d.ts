@@ -1225,6 +1225,10 @@ export interface Appointment {
      * A set of date ranges (potentially including times) that the appointment is preferred to be scheduled within.The duration (usually in minutes) could also be provided to indicate the length of the appointment to fill and populate the start/end times for the actual allocated time. However, in other situations the duration may be calculated by the scheduling system.
      */
     requestedPeriod?: Period[];
+    /**
+     * NOTE: From extension
+     */
+    episodeOfCare?: Array<AidboxReference<EpisodeOfCare>>;
 }
 /**
  * List of participants involved in the appointment.
@@ -3150,6 +3154,21 @@ export interface CarePlanActivityDetail {
      * This provides a textual description of constraints on the intended activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc.
      */
     description?: string;
+    /**
+     * NOTE: From extension
+     * Unit this activity relates to
+     */
+    unit?: Reference;
+    /**
+     * NOTE: From extension
+     * Type of unit to store value
+     */
+    unitType?: string;
+    /**
+     * NOTE: From extension
+     * List of options related to Choice or SCale unit type
+     */
+    options?: any;
 }
 /**
  * The Care Team includes all the people and organizations who plan to participate in the coordination and delivery of care for a patient.
@@ -3546,6 +3565,10 @@ export interface ChargeItem {
      * Further information supporting this charge.
      */
     supportingInformation?: Array<AidboxReference<AidboxResource>>;
+    /**
+     * NOTE: from extension
+     */
+    accessionNumber?: string;
 }
 /**
  * Indicates who or what performed or participated in the charged service.
@@ -10369,6 +10392,15 @@ export interface DocumentReference {
      * The clinical context in which the document was prepared.
      */
     context?: DocumentReferenceContext;
+    /**
+     * NOTE: From extension
+     * Processing status
+     */
+    processingStatus?: 'not-reviewed' | 'in-progress' | 'completed';
+    /**
+     * NOTE: from extension
+     */
+    scannedBy?: string;
 }
 /**
  * Relationships that this document has with other document references that already exist.
@@ -10419,6 +10451,10 @@ export interface DocumentReferenceContent {
      * An identifier of the document encoding, structure, and template that the document conforms to beyond the base format indicated in the mimeType.
      */
     format?: Coding;
+    /**
+     * NOTE: from extension
+     */
+    sequence?: number;
 }
 /**
  * The clinical context in which the document was prepared.
@@ -10464,6 +10500,14 @@ export interface DocumentReferenceContext {
      * Related identifiers or resources associated with the DocumentReference.
      */
     related?: Array<AidboxReference<AidboxResource>>;
+    /**
+     * NOTE: from extension
+     */
+    accessionNumber?: string;
+    /**
+     * NOTE: from extension
+     */
+    accessionPerformedBy?: string;
 }
 /**
  * Indicates how the medication is/was taken or should be taken by the patient.
@@ -12196,6 +12240,66 @@ export interface EpisodeOfCare {
      * The set of accounts that may be used for billing for this EpisodeOfCare.
      */
     account?: Array<AidboxReference<Account>>;
+    /**
+     * Note: from extension
+     */
+    lawFirm?: AidboxReference<Organization>;
+    /**
+     * Note: from extension
+     */
+    managingAttorney?: AidboxReference<Practitioner>;
+    /**
+     * Note: from extension
+     */
+    mskicStatus?: string;
+    /**
+     * Note: from extension
+     */
+    mskicCommercialStatus?: 'commercial' | 'non-commercial';
+    /**
+     * Note: from extension
+     */
+    mskicArbitrationClause?: 'yes' | 'no' | 'yes-no';
+    /**
+     * Note: from extension
+     */
+    mskicType?: 'Assigned to MLH' | 'Not Assigned to MLH';
+    /**
+     * Note: from extension
+     */
+    mskicSubType?: string;
+    /**
+     * Note: from extension
+     */
+    mskicPool?: string;
+    /**
+     * Note: from extension
+     */
+    mskicStatusUpdated?: instant;
+    /**
+     * Note: from extension
+     */
+    mskicStatusUpdatedBy?: AidboxReference<Practitioner>;
+    /**
+     * Note: from extension
+     */
+    mskicStatusExpirationDate?: date;
+    /**
+     * Note: from extension
+     */
+    attentionRequired?: boolean;
+    /**
+     * Note: from extension
+     */
+    paymentObligationDocumentsStatus?: StatusResolving;
+    /**
+     * Note: from extension
+     */
+    RAStatus?: StatusResolving;
+    /**
+     * Note: from extension
+     */
+    LOIRStatus?: StatusResolving;
 }
 /**
  * The history of statuses that the EpisodeOfCare has been through (without requiring processing the history of the resource).
@@ -17315,6 +17419,18 @@ export interface Invoice {
      * Comments made about the invoice by the issuer, subject, or other participants.
      */
     note?: Annotation[];
+    /**
+     * NOTE: From extension
+     */
+    mskicSentTo?: 'MTB' | 'SPM' | 'PPF' | 'Atticus';
+    /**
+     * NOTE: From extension
+     */
+    mskicDeliveryMethod?: 'FEDEX' | 'Certified Mail';
+    /**
+     * NOTE: From extension
+     */
+    mskicTrackingNumber?: string;
 }
 /**
  * Indicates who or what performed or participated in the charged service.
@@ -23943,6 +24059,11 @@ export interface Organization {
      * Technical endpoints providing access to services operated for the organization.
      */
     endpoint?: Array<AidboxReference<Endpoint>>;
+    /**
+     * NOTE: from extension.
+     * Only for law firms.
+     */
+    isBlacklisted?: boolean;
 }
 /**
  * Contact for the organization for a certain purpose.
@@ -25324,6 +25445,16 @@ export interface Practitioner {
      * A language the practitioner can use in patient communication.
      */
     communication?: CodeableConcept[];
+    /**
+     * NOTE: From extension
+     * Help text for the question
+     */
+    mskicType?: string;
+    /**
+     * NOTE: From extension
+     * Only for attorneys.
+     */
+    isWhitelisted?: boolean;
 }
 /**
  * The official certifications, training, and licenses that authorize or otherwise pertain to the provision of care by the practitioner.  For example, a medical license issued by a medical board authorizing the practitioner to practice medicine within a certian locality.
@@ -26208,6 +26339,22 @@ export interface QuestionnaireItem {
      * Text, questions and other groups to be nested beneath a question or group.
      */
     item?: QuestionnaireItem[];
+
+    /**
+     * NOTE: From extension
+     * unit for integer/decimal type
+     */
+    unit?: Coding;
+    /**
+     * NOTE: From extension
+     * Help text for the question
+     */
+    helpText?: string;
+    /**
+     * NOTE: From extension
+     * Template for resource generation
+     */
+    generatedResourceTemplate?: any;
 }
 /**
  * A constraint indicating that this item should only be enabled (displayed/allow answers to be captured) when the specified condition is true.
@@ -26474,6 +26621,11 @@ export interface QuestionnaireResponseItemAnswer {
      * Nested groups and/or questions found within this particular answer.
      */
     item?: QuestionnaireResponseItem[];
+    /**
+     * NOTE: From extension
+     * Reference to generated resource
+     */
+    generatedResource?: AidboxReference<any>;
 }
 /**
  * A set of ordered Quantities defined by a low and high limit.
@@ -28643,6 +28795,10 @@ export interface ServiceRequest {
      * Key events in the history of the request.
      */
     relevantHistory?: Array<AidboxReference<Provenance>>;
+    /**
+     * NOTE: From extension
+     */
+    episodeOfCare?: Array<AidboxReference<EpisodeOfCare>>;
 }
 /**
  * A signature along with supporting context. The signature may be a digital signature that is cryptographic in nature, or some other signature acceptable to the domain. This other signature may be as simple as a graphical image representing a hand-written signature, or a signature ceremony Different signature approaches have different utilities.

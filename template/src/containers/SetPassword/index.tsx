@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 import ReactRouter from 'react-router';
 import { History } from 'history';
-import { InputField } from 'src/components/fields';
-import { SetPasswordBody } from 'src/services/auth';
-import { Button, Card, Col, Form, Layout, notification, Row, Alert } from 'antd';
-import { isSuccess, RemoteData } from 'src/embed/aidbox-react/libs/remoteData';
-import { Form as FinalForm } from 'react-final-form';
+import {InputField} from "src/components/fields";
+import {SetPasswordBody} from "src/services/auth";
+import {Button, Card, Col, Form, Layout, notification, Row, Alert} from "antd";
+import {isSuccess, RemoteData} from "src/embed/aidbox-react/libs/remoteData";
+import { CustomForm } from 'src/components/CustomForm';
 import validate from './validation';
+
 
 const { Content } = Layout;
 
@@ -40,6 +41,7 @@ interface Props {
 }
 
 export function SetPassword({ service, match, history }: Props) {
+
     const onSubmit = async (values: SetPasswordBody) => {
         const { code } = match.params;
         const response = await service({ code, password: values.password });
@@ -52,23 +54,21 @@ export function SetPassword({ service, match, history }: Props) {
         }
     };
 
+
+
     return (
         <Layout className="layout">
             <Content>
                 <Row style={{ height: '100vh' }}>
                     <Col xs={{ span: 24, offset: 0 }} lg={{ span: 12, offset: 6 }}>
                         <Card style={{ marginTop: '10%', paddingTop: '15px' }}>
-                            <FinalForm<SetPasswordBody>
+                            <CustomForm<SetPasswordBody>
+                                {...formItemLayout}
                                 onSubmit={onSubmit}
                                 validate={validate}
-                                render={({ handleSubmit, submitError, pristine, submitting }) => (
-                                    <Form
-                                        {...formItemLayout}
-                                        onSubmit={(event) => {
-                                            event.preventDefault();
-                                            handleSubmit();
-                                        }}
-                                    >
+                            >
+                                {({ submitError, submitting }) => (
+                                    <>
                                         <Form.Item {...tailFormItemLayout}>
                                             <h1>Set password</h1>
                                         </Form.Item>
@@ -101,9 +101,9 @@ export function SetPassword({ service, match, history }: Props) {
                                                 Set password
                                             </Button>
                                         </Form.Item>
-                                    </Form>
+                                    </>
                                 )}
-                            />
+                            </CustomForm>
                         </Card>
                     </Col>
                 </Row>

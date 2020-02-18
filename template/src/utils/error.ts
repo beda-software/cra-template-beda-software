@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
-import { OperationOutcome } from 'src/contrib/aidbox';
+import {OperationOutcome} from "src/contrib/aidbox";
+
 
 export function isOperationOutcome(error: any): error is OperationOutcome {
     return _.isPlainObject(error) && error.resourceType === 'OperationOutcome';
